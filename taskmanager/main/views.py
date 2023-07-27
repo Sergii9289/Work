@@ -1,9 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-
+from .models import Task
 
 def index(request):
-    return render(request, 'main/index.html')
+    tasks = Task.objects.all() #выводит все объекты в виде списка
+    # tasks = Task.objects.order_by(id)  # выводит сортированный список
+    return render(request, 'main/index.html', {'title': 'Головна сторінка сайту', 'tasks': tasks})
+    # через jinja передаёт значения 'title' и 'tasks' HTML документ
 
 def about(request):
     return render(request, 'main/about.html')
