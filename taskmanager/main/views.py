@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Task, City
-from .forms import TaskForm
+from .forms import TaskForm, CityForm
 import requests
 
 
@@ -16,6 +16,12 @@ def index(request):
 
 def weather(request):
     api_key = '6d26d75769caffae67cc0c6302c7dd59'
+
+    if request.method == 'POST':
+        form = CityForm(request.POST)   # получили данные от пользователя и сщхраняем в переменной form
+        form.save()     # сохраняем данные из переменной в БД
+
+    form = CityForm()   # очищаем переменную form. Передаём пустой объект.
 
     all_cities = []
 
@@ -38,7 +44,7 @@ def weather(request):
         all_cities.append(city_info)    # создаём список информации по всем городам
 
 
-    context = {'all_info': all_cities}      # сщздаёи словарь Jinja для передачи данных в HTML
+    context = {'all_info': all_cities, 'form': form}      # сщздаёи словарь Jinja для передачи данных в HTML
 
     return render(request, 'main/weather.html', context)
 
