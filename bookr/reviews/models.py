@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib import auth
 
 
 class Publisher(models.Model):
@@ -40,9 +41,24 @@ class BookContributor(models.Model):
         AUTHOR = 'AUTHOR', 'Author'
         CO_AUTHOR = 'CO_AUTHOR', 'Co-Author'
         EDITOR = 'EDITOR', 'Editor'
+
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     contributor = models.ForeignKey(Contributor, on_delete=models.CASCADE)
     role = models.CharField(
         verbose_name='The role this contributor had in book',
         choices=ContributionRole.choices,
         max_length=20)
+
+
+class Review(models.Model):
+    content = models.TextField(help_text='Rexiew text.')
+    rating = models.IntegerField(help_text='Rating the review has given.')
+    date_created = models.DateTimeField(
+        auto_now_add=True,
+        help_text='Date and time the review was created.')
+    date_edited = models.DateTimeField(
+        null=True,
+        help_text='Date and time the review was last edited.')
+    creator = models.ForeignKey(auth.get_user_model(), on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE,
+                             help_text='Book that this review is for.')
