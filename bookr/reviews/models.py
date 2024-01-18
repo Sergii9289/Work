@@ -11,6 +11,9 @@ class Publisher(models.Model):
     email = models.EmailField(
         help_text='The Publisher Email')
 
+    def __str__(self):
+        return self.name
+
 
 class Book(models.Model):
     title = models.CharField(
@@ -24,6 +27,9 @@ class Book(models.Model):
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
     contributors = models.ManyToManyField('Contributor', through='BookContributor')
 
+    def __str__(self):
+        return self.title
+
 
 class Contributor(models.Model):
     first_names = models.CharField(
@@ -34,6 +40,9 @@ class Contributor(models.Model):
         help_text='Contributor last name or names.')
     email = models.EmailField(
         help_text='Contact email for the contributor.')
+
+    def __str__(self):
+        return self.first_names
 
 
 class BookContributor(models.Model):
