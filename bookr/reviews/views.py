@@ -1,11 +1,6 @@
 from django.shortcuts import render
+from .models import Book
 
 
-def index(request):
-    name = 'world'
-    return render(request, 'base.html', {'name': name})
-
-
-def search_result(request):
-    name = request.GET.get('search') or 'None'
-    return render(request, 'searchresult.html', {'book': name})
+def welcome_view(request):
+    return render(request, 'base.html')
