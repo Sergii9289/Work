@@ -28,7 +28,7 @@ class Book(models.Model):
     contributors = models.ManyToManyField('Contributor', through='BookContributor')
 
     def __str__(self):
-        return self.title
+        return f'{self.title}, {self.isbn}'
 
 
 class Contributor(models.Model):
@@ -41,8 +41,15 @@ class Contributor(models.Model):
     email = models.EmailField(
         help_text='Contact email for the contributor.')
 
+    def initialed_name(self):
+        names = list(self.first_names.split())
+        initials = ''
+        for name in names:
+            initials += name[0]
+        return f'{self.last_names}, {initials}'
+
     def __str__(self):
-        return self.first_names
+        return self.initialed_name()
 
 
 class BookContributor(models.Model):
@@ -52,7 +59,7 @@ class BookContributor(models.Model):
         EDITOR = 'EDITOR', 'Editor'
 
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    contributor = models.ForeignKey(Contributor, on_delete=models.CASCADE)
+    contributor = models.ForeignKey(Contributor, on_delete=models.PROTECT)
     role = models.CharField(
         verbose_name='The role this contributor had in book',
         choices=ContributionRole.choices,
