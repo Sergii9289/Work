@@ -32,7 +32,11 @@
                         <span class="text-info">Creator: </span><span>{{ review.creator.username }}</span>
                         <br>
                   </li>
+                  <a type="submit" href="reviews/{{ review.id }}/">Edit review</a>
             {% endfor %}
             </ul>
       {% endif %}
+       <p>
+             <a class="btn btn-primary" type="submit" href="reviews/new/">Add review</a>
+    </p>
 {% endblock %}

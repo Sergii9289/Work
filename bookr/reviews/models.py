@@ -26,6 +26,9 @@ class Book(models.Model):
         verbose_name='ISBN number of the book.')
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
     contributors = models.ManyToManyField('Contributor', through='BookContributor')
+    cover = models.ImageField(upload_to='book_covers/', null=True, blank=True)
+    sample = models.FileField(upload_to='book_samples/', null=True, blank=True)
+
 
     def __str__(self):
         return f'{self.title}, {self.isbn}'
@@ -67,7 +70,7 @@ class BookContributor(models.Model):
 
 
 class Review(models.Model):
-    content = models.TextField(help_text='Rexiew text.')
+    content = models.TextField(help_text='Review text.')
     rating = models.IntegerField(help_text='Rating the review has given.')
     date_created = models.DateTimeField(
         auto_now_add=True,

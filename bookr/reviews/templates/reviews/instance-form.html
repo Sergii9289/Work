@@ -1,0 +1,15 @@
+{% extends 'reviews/base.html' %}
+{% block content %}
+<h2>
+    <p>
+        For {{ related_model_type }} <em>{{ related_instance.title }}</em>
+    </p>
+</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p>
+        <input class="btn btn-primary" type="submit" value="{% if instance is None %}Create{% else %}Save{% endif %}">
+    </p>
+</form>
+{% endblock %}
