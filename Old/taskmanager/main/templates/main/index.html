@@ -1,0 +1,20 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+    <h1>Головна сторінка</h1>
+    {% if tasks %}
+        {% for i in tasks %}
+            <div class="block1">
+                <h4>{{ i.title }}</h4>
+                <p>{{ i.task }}</p>
+                <p>-----------------------------------</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>У нас немає записів</p>
+    {% endif %}
+{% endblock %}

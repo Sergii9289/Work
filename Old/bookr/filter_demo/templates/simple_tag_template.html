@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Tag Template Example</title>
+</head>
+<body>
+{% load simple_tag inclusion_tag %}
+<p>Using Simple Tag: {% greet_user 'Hey' username %}</p>
+<p>Using Contextual Simple Tag: {% contextual_greet_user 'Hey' %}</p>
+<br>
+<span class="message">You have read the following books till date</span>
+{% book_list books %} <!-- calling inclusion_tag.book_list function with arguement 'books' -->
+</body>
+</html>

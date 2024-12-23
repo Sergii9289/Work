@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Readed Book List</title>
+</head>
+<body>
+<p>Books Read</p>
+<ul>
+{% for book in readed_books %}
+    <li>
+    {{ book }}</li>
+    {% empty %}No books
+{% endfor %}
+</ul>
+</body>
+</html>
