@@ -1,10 +1,12 @@
 /venv/
 /.idea/
-/business_site/
-/comment8or/
-/form_project/
-/media_project/
-/Old/
-/csv_pdf_graph/
-/bookr/
+/bookr
+/business_site
+/comment8or
+/csv_pdf_graph
+/form_project
+/media_project
+/Old
+main.py
+
 
