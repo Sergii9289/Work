@@ -59,6 +59,7 @@ margin: 20px 5px 5px 5px;
 <span class="message">Books read:</span>
 {% load profile_tags %}
 {% book_list request.user.username %}
+<a class="btn btn-primary" role="button" aria-pressed="true" href="read_history/">Download read history</a>
 {% plot_demo %}
 {% autoescape off %}
 {{ books_read_plot }}

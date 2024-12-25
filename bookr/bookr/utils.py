@@ -23,3 +23,9 @@ def get_books_read_by_month(username: [str]):
     return books
 
 
+def books_read_by_user(username: [str]):
+    """fetching the list of books that have been read by the user"""
+    reviews = Review.objects.filter(creator__username__contains=username)
+    books = [review.book.title for review in reviews]
+    return books
+

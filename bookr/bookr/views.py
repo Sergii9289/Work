@@ -2,7 +2,10 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from plotly.offline import plot
 import plotly.graph_objects as graphs
-from .utils import get_books_read_by_month
+from .utils import get_books_read_by_month, books_read_by_user
+import xlsxwriter
+from io import BytesIO
+from django.http import HttpResponse
 
 
 @login_required
@@ -32,3 +35,23 @@ def profile(request):
         'books_read_plot': plot_html
     }
     return render(request, 'profile.html', context)
+
+@login_required
+def reading_history(request):
+    user = request.user  # retrieve user from request
+    books: [list] = books_read_by_user(user.username)  # retrieve books read by user through reviews model
+    # filename = f'{user.username}_books.xlsx'  # create filename using username
+    filename = BytesIO()
+    workbook = xlsxwriter.Workbook(filename)
+    worksheet = workbook.add_worksheet()
+    for row in range(len(books)):
+        worksheet.write(row, 0, books[row])
+    workbook.close()
+    excel_data = filename.getvalue()  # retrieve data from memory file
+    # setting up an HttpResponse to send an Excel file.
+    response = HttpResponse(content_type='application/vnd.ms-excel')
+    # Set the Content-Disposition header to prompt a download with a personalized filename
+    response['Content-Disposition'] = f'attachment; filename={user.username}_reading_history.xlsx'
+    response.write(excel_data)
+    return response
+
