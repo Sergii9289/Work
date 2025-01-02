@@ -13,7 +13,8 @@ urlpatterns = [
     path('accounts/reset/done/', auth.views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('', include('reviews.urls')),
     path('filter_demo/', include('filter_demo.urls')),
-    path('book_management/', include('book_management.urls'))
+    path('book_management/', include('book_management.urls')),
+    path('', include('bookr_test.urls'))
 ]
 
 if settings.DEBUG:
