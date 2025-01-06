@@ -5,6 +5,7 @@ def index(request):
     names = "john,doe,mark,swain"
     return render(request, 'index.html', {'names': names})
 
+
 def greeting_view(request):
     books = {
         "The Great Gatsby": "F. Scott Fitzgerald",
